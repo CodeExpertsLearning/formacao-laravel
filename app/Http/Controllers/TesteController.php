@@ -8,11 +8,11 @@ class TesteController extends Controller
 {
     public function index()
     {
-      return "Teste";
+        return "Teste";
     }
 
     public function noauth()
     {
-      return "Rota sem auth";
+        return "Rota sem auth";
     }
 }

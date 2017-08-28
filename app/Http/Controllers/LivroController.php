@@ -13,7 +13,6 @@ class LivroController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
