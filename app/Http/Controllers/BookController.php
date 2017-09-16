@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Publisher;
 use App\Http\Requests\BookRequest;
@@ -13,12 +15,20 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
+        $request->session()->put('chave', 10);
+        //
+        //        session(['key' => 'value']);
+
+        $value = $request->session()->get('chave');
+
+        dd([$value, $request->session()->exists('chave')]);
+
+        $book = new Book();
 
         return view('books.index', [
-          'books' => $books
+          'books' => $book->paginate(10)
         ]);
     }
 
@@ -73,29 +83,56 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Book::find($id)) {
+            return view('books.edit', [
+                'book' => Book::find($id),
+                'publishers' => Publisher::all()
+            ]);
+        }
+
+        return redirect()->route('book.index');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request|\Illuminate\Http\Request $request
+     * @param Request|BookRequest|\Illuminate\Http\Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
-        //
+        try {
+            if (Book::find($id)) {
+                $book = Book::find($id);
+                $book->update($request->except(['_token', '_method']));
+            }
+
+            return redirect()->route('book.index');
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        try {
+            if (Book::find($id)) {
+                $book = Book::find($id);
+                $book->delete();
+            }
+
+            return redirect()->route('book.index');
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }

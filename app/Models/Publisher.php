@@ -9,7 +9,7 @@ class Publisher extends Model
     protected $table = "publishers";
 
     protected $fillable = [
-       'name'
+        'name'
     ];
 
     public function books()

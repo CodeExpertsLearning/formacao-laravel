@@ -59,8 +59,6 @@
                                 id="form-delete">
                               {{ csrf_field() }}
                               {{ method_field('DELETE') }}
-                              <input type="hidden" name="id"
-                                     value="{{ $book->id }}">
                               <button type="submit" class="btn btn-danger">
                                   Excluir
                               </button>
@@ -72,6 +70,9 @@
             </tbody>
             </table>
           </div>
+        </div>
+        <div class="row">
+            {{ $books->render() }}
         </div>
     </div>
 @endsection
