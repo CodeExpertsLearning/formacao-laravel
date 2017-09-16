@@ -28,7 +28,7 @@
                     </button>
 
                     @if(Auth::check())
-                      <a class="navbar-brand" href="{{ route('livros.index') }}">Livros</a>
+                      <a class="navbar-brand" href="{{ route('book.index') }}">Livros</a>
                     @endif
                 </div>
 

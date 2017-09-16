@@ -48,7 +48,7 @@ class BookController extends Controller
             $data = $request->except('_token');
             $book = Book::create($data);
 
-            return redirect()->route('livros.index');
+            return redirect()->route('book.index');
         } catch (\Exception $e) {
             throw $e;
         }

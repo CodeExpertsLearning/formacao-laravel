@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-12">
             <h2>
-              <a href="{{ route('livros.create')}}" class="btn btn-success pull-right">Novo Livro</a>
+              <a href="{{ route('book.create')}}" class="btn btn-success pull-right">Novo Livro</a>
               <span class="pull-left">Acervo de Livros</span>
             </h2>
           </div>
@@ -27,6 +27,7 @@
                   <th class="text-center">Ano</th>
                   <th class="text-center">Quantidade</th>
                   <th class="text-center">Disponível</th>
+                  <th class="text-center">Opções</th>
                 </tr>
               </thead>
             <tbody>
@@ -40,6 +41,32 @@
                   <td>{{ $book->year }}</td>
                   <td>{{ $book->quantity }}</td>
                   <td>{{ $book->available }}</td>
+                  <td class="form-inline">
+                      <div class="form-group">
+                          <form method="get"
+                                action="{{ route('book.edit', ['id' => $book->id]) }}"
+                                role="form"
+                                id="form-edit">
+                              <button type="submit" class="btn btn-primary">
+                                  <i class="glyphicon glyphicon-pencil"></i> Editar
+                              </button>
+                          </form>
+                      </div>
+                      <div class="form-group">
+                          <form method="post"
+                                action="{{ route('book.delete', ['id' => $book->id]) }}"
+                                role="form"
+                                id="form-delete">
+                              {{ csrf_field() }}
+                              {{ method_field('DELETE') }}
+                              <input type="hidden" name="id"
+                                     value="{{ $book->id }}">
+                              <button type="submit" class="btn btn-danger">
+                                  Excluir
+                              </button>
+                          </form>
+                      </div>
+                  </td>
                 </tr>
                 @endforeach
             </tbody>
