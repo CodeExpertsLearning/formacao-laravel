@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Models\Publisher;
+use App\Http\Requests\BookRequest;
 
-class ClienteController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,11 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::all();
+
+        return view('books.index', [
+          'books' => $books
+        ]);
     }
 
     /**
@@ -23,18 +29,29 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        $publishers = Publisher::all();
+
+        return view('books.create', [
+          'publishers' => $publishers
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param BookRequest|\Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+        try {
+            $data = $request->except('_token');
+            $book = Book::create($data);
+
+            return redirect()->route('livros.index');
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -62,8 +79,8 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request|\Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

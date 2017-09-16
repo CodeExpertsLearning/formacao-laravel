@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Publisher;
-use App\Http\Requests\BookRequest;
+use Illuminate\Http\Request;
 
-class LivroController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +13,7 @@ class LivroController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-
-        return view('books.index', [
-          'books' => $books
-        ]);
+        //
     }
 
     /**
@@ -29,11 +23,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        $publishers = Publisher::all();
-
-        return view('books.create', [
-          'publishers' => $publishers
-        ]);
+        //
     }
 
     /**
@@ -42,16 +32,9 @@ class LivroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
-        try {
-            $data = $request->except('_token');
-            $book = Book::create($data);
-
-            return redirect()->route('livros.index');
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        //
     }
 
     /**
