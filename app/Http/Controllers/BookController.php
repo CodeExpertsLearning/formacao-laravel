@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Cache;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Publisher;
@@ -17,14 +18,11 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        $request->session()->put('chave', 10);
+        //        Cache::put('key2', 10, 5);
         //
-        //        session(['key' => 'value']);
-
-        $value = $request->session()->get('chave');
-
-        dd([$value, $request->session()->exists('chave')]);
-
+        //        $value = Cache::get('key2');
+        //
+        //        dd($value);
         $book = new Book();
 
         return view('books.index', [
