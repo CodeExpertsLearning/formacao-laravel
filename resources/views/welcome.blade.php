@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Empreste+Livros
+                    {{ My::hello() }}
                 </div>
 
                 <div class="links">

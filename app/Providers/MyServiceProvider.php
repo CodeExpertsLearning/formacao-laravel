@@ -25,9 +25,8 @@ class MyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $this->app->singleton('My', function(){
-           return new My("Registrando");
+        $this->app->singleton('My', function () {
+            return new My("Outra messagem");
         });
     }
 }
